@@ -1,0 +1,21 @@
+{
+  "extends": "standard",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 6
+  },
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "semi": [2, "always"],
+    "indent": ["error", 2, {"outerIIFEBody": 0}],
+    "one-var": 0,
+    "no-var": 2,
+    "prefer-const": 2,
+    "no-multi-spaces": 0,
+    "no-multiple-empty-lines": 0,
+    "padded-blocks": 0
+  }
+}
