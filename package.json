@@ -25,7 +25,8 @@
     "test:watch": "nodemon --watch src --watch tests --exec 'npm test'",
     "test": "mocha -r reify -r source-map-support/register tests/*.test.js",
     "prepublishOnly": "npm run build && npm test",
-    "test:browser": "npm run build && opn http://127.0.0.1:8080/tests/ && serve -p 8080"
+    "test:browser": "npm run build && opn http://127.0.0.1:8080/tests/ && serve -p 8080",
+    "npm:publish:next":"npm version patch && npm run build && npm publish"
   },
   "devDependencies": {
     "chai": "^4.1.2",
