@@ -1,6 +1,6 @@
 {
   "name": "mr-anderson",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "author": "Alexander Jenter",
   "license": "MIT",
   "description": "vectors and matrices for giggles. educational use only ;)",
@@ -26,7 +26,7 @@
     "test": "mocha -r reify -r source-map-support/register tests/*.test.js",
     "prepublishOnly": "npm run build && npm test",
     "test:browser": "npm run build && opn http://127.0.0.1:8080/tests/ && serve -p 8080",
-    "npm:publish:next":"npm version patch && npm run build && npm publish"
+    "npm:publish:next": "npm version patch && npm run build && npm publish"
   },
   "devDependencies": {
     "chai": "^4.1.2",
