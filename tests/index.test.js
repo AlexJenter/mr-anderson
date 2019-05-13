@@ -39,30 +39,33 @@ describe('helpers', () => {
 describe.only('lib', () => {
   describe('vec', () => {
     it('scaling', () => {
-      const partiallyApplied = lib.vecScale(10);
-      const vec = partiallyApplied([1, 2, 3]);
-      expect(vec).to.eql([10, 20, 30]);
+      expect(lib.vecScale(10, [1, 2, 3])).to.eql([10, 20, 30]);
+      expect(lib.vecScale(-1, [1, 2, 3])).to.eql([-1, -2, -3]);
     });
     it('addition', () => {
-      const partiallyApplied = lib.vecAdd([1, 2, 3, 4]);
-      const vec = partiallyApplied([2, 2, 2, 2]);
-      expect(vec).to.eql([3, 4, 5, 6]);
+      expect(lib.vecAdd([1, 0, 0], [0, 1, 0])).to.eql([1, 1, 0]);
+      expect(lib.vecAdd([1, 0, 0], [0, 0, 1])).to.eql([1, 0, 1]);
+      expect(lib.vecAdd([-20, 0, 0], [10, 0, 1])).to.eql([-10, 0, 1]);
     });
     it('subtraction', () => {
-      const partiallyApplied = lib.vecSubtract([1, 2, 3, 4]);
-      const vec = partiallyApplied([1, 2, 3, 4]);
-      expect(vec).to.eql([0, 0, 0, 0]);
+      expect(lib.vecSubtract([1, 2, 3], [1, 2, 3])).to.eql([0, 0, 0]);
+      expect(lib.vecSubtract([10, 20, 30], [-1, -2, -3])).to.eql([11, 22, 33]);
     });
     it('dot product', () => {
-      expect(
-        lib.vecDotProduct([1, 2, 3], [1, 5, 7])
-      ).to.eql(32);
-      expect(
-        lib.vecDotProduct([-1, -2, 3], [4, 0, -8])
-      ).to.eql(-28);
-      expect(
-        lib.vecDotProduct([1, 2, -4], [2, 3, 5])
-      ).to.eql(-12);
+      expect(lib.vecDotProduct([1, 2, 3], [1, 5, 7])).to.eql(32);
+      expect(lib.vecDotProduct([-1, -2, 3], [4, 0, -8])).to.eql(-28);
+      expect(lib.vecDotProduct([1, 2, -4], [2, 3, 5])).to.eql(-12);
+    });
+    it('cross', () => {
+      expect(lib.cross([1, 0, 0], [0, 2, 0])).to.eql([0, 0, 2]);
+    });
+    it('magnitude', () => {
+      expect(lib.magnitude([1, 0, 0])).to.eql(1);
+    });
+    it('unit', () => {
+      expect(lib.unit([5, 0, 0])).to.eql([1, 0, 0]);
+      expect(lib.unit([0, 6, 0])).to.eql([0, 1, 0]);
+      expect(lib.unit([0, 0, 7])).to.eql([0, 0, 1]);
     });
   });
 });
