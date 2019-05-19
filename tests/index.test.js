@@ -69,26 +69,36 @@ describe.only('Lib', () => {
     });
   });
   describe('Matrix algebra', () => {
-    describe('3x3 ', () => {
-      it('null matrix', () => {
-        // prettier-ignore
-        expect(lib.matNull3()).to.eql([
-          0, 0, 0,
-          0, 0, 0,
-          0, 0, 0
-        ]);
-      });
-      it('identity matrix', () => {
-        // prettier-ignore
-        expect(lib.matIdentity3()).to.eql([
-          1, 0, 0,
-          0, 1, 0,
-          0, 0, 1
-        ]);
-      });
+    it('null matrix', () => {
+      // prettier-ignore
+      expect(lib.matNull(2)).to.eql([
+        [0, 0],
+        [0, 0]
+      ]);
+    });
+    it('identity matrix', () => {
+      // prettier-ignore
+      expect(lib.matIdentity(2)).to.eql([
+        [1, 0],
+        [0, 1]
+      ]);
+    });
+    it('transpose', () => {
+      // prettier-ignore
+      expect(lib.matTranspose([
+        [10, 11, 12],
+        [20, 21, 22],
+        [30, 31, 32]
+      ])).to.eql([
+        [10, 20, 30],
+        [11, 21, 31],
+        [12, 22, 32]
+      ]);
+    });
+    describe.skip('3x3 ', () => {
       it('transpose', () => {
         // prettier-ignore
-        expect(lib.matTranspose3([
+        expect(lib.mat3Transpose([
           10, 11, 12,
           20, 21, 22,
           30, 31, 32
@@ -98,11 +108,27 @@ describe.only('Lib', () => {
           12, 22, 32
         ]);
       });
+      it('multiply', () => {
+        // prettier-ignore
+        expect(lib.mat3Multiply([
+          0, -3, -2,
+          4,  5, -1,
+          6,  1, 7
+        ], [
+          0,   2, -4,
+          -2, -3,  3,
+          4,   5, -1
+        ])).to.eql([
+          -2, -1, -7,
+          -14, -12, 0,
+          26, 44, -28
+        ]);
+      });
     });
-    describe('4x4 ', () => {
+    describe.skip('4x4 ', () => {
       it('null matrix', () => {
         // prettier-ignore
-        expect(lib.matNull4()).to.eql([
+        expect(lib.mat4Null()).to.eql([
           0, 0, 0, 0,
           0, 0, 0, 0,
           0, 0, 0, 0,
@@ -111,7 +137,7 @@ describe.only('Lib', () => {
       });
       it('identity matrix', () => {
         // prettier-ignore
-        expect(lib.matIdentity4()).to.eql([
+        expect(lib.mat4Identity()).to.eql([
           1, 0, 0, 0,
           0, 1, 0, 0,
           0, 0, 1, 0,
@@ -120,7 +146,7 @@ describe.only('Lib', () => {
       });
       it('transpose', () => {
         // prettier-ignore
-        expect(lib.matTranspose4([
+        expect(lib.mat4Transpose([
           10, 11, 12, 13,
           20, 21, 22, 23,
           30, 31, 32, 33,
@@ -130,6 +156,25 @@ describe.only('Lib', () => {
           11, 21, 31, 41,
           12, 22, 32, 42,
           13, 23, 33, 43
+        ]);
+      });
+      it('multiply', () => {
+        // prettier-ignore
+        expect(lib.mat4Multiply([
+          3, 5, 7, 8,
+          1, 2, 8, 7,
+          4, 5, 3, -2,
+          1, 6, 7, 9
+        ], [
+          2, 8, 6, 9,
+          3, -5, 6, 7,
+          1, 4, 9, -3,
+          10, -2, 5, 2
+        ])).to.eql([
+          108, 11, 151, 57,
+          86, 16, 125, 13,
+          6, 23, 71, 58,
+          117, -12, 150, 48
         ]);
       });
     });
