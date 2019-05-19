@@ -113,6 +113,17 @@ describe.only('Lib', () => {
         [26, 44, -28]
       ]);
     });
+  });
+  describe('Transforms', () => {
+    it('translate', () => {
+      // prettier-ignore
+      const x = 1;
+      const y = 2;
+      expect(lib.createTransform2d.translate(x, y).get()).to.eql([
+        [1, 0, x],
+        [0, 1, y],
+        [0, 0, 1]
+      ]);
     });
   });
 });
