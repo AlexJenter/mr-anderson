@@ -3,6 +3,7 @@ import { curry } from './helpers';
 const square = x => Math.pow(x, 2);
 const add = (a, b) => a + b;
 const sum = arr => arr.reduce(add, 0);
+const mul = x => y => x * y;
 
 /**
  * # Vector multiplication
@@ -12,7 +13,7 @@ const sum = arr => arr.reduce(add, 0);
  * @returns {Array<Number>} the scaled vector
  */
 
-export const vecScale = curry((factor, vector) => vector.map(x => factor * x));
+export const vecScale = curry((factor, vector) => vector.map(mul(factor)));
 
 /**
  * # Vector addition
@@ -54,10 +55,10 @@ export const vecDotProduct = curry((vecA, vecB) =>
  * @returns {Array<Number>} the vector representing the cross product
  */
 
-const cross3 = curry(([a1, a2, a3], [b1, b2, b3]) => [
-  a2 * b3 - a3 * b2,
-  a3 * b1 - a1 * b3,
-  a1 * b2 - a2 * b1
+const cross3 = curry(([ax, ay, az], [bx, by, bz]) => [
+  ay * bz - az * by,
+  az * bx - ax * bz,
+  ax * by - ay * bx
 ]);
 
 /**
@@ -72,10 +73,10 @@ const cross2 = ([ax, ay], [bx, by]) => ax * by + ay * bx;
 export const cross = (vecA, vecB) => {
   if (vecA.length !== vecB.length) {
     throw new Error('Input Vectors must be of same length');
-  };
+  }
 
-  if (vecA.length === 2) return cross2(vecA,  vecB);
-  if (vecA.length === 3) return cross3(vecA,  vecB);
+  if (vecA.length === 2) return cross2(vecA, vecB);
+  if (vecA.length === 3) return cross3(vecA, vecB);
   throw new Error('Cross product can only be calculated for 2d or 3d vectors');
 };
 
@@ -94,3 +95,35 @@ export const magnitude = vec => Math.sqrt(sum(vec.map(square)));
  */
 
 export const unit = curry(vec => vecScale(1 / magnitude(vec), vec));
+
+export const matNull3 = () => new Array(9).fill(0);
+export const matIdentity3 = () =>
+  matNull3().map((x, i) => (i % 4 === 0 ? 1 : 0));
+
+// prettier-ignore
+export const matTranspose3 = ([
+  x0, y0, z0,
+  x1, y1, z1,
+  x2, y2, z2
+]) => ([
+  x0, x1, x2,
+  y0, y1, y2,
+  z0, z1, z2
+]);
+
+export const matNull4 = () => new Array(16).fill(0);
+export const matIdentity4 = () =>
+  matNull4().map((x, i) => (i % 5 === 0 ? 1 : 0));
+
+// prettier-ignore
+export const matTranspose4 = ([
+  x0, y0, z0, w0,
+  x1, y1, z1, w1,
+  x2, y2, z2, w2,
+  x3, y3, z3, w3
+]) => ([
+  x0, x1, x2, x3,
+  y0, y1, y2, y3,
+  z0, z1, z2, z3,
+  w0, w1, w2, w3
+]);

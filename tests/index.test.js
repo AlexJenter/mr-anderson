@@ -36,8 +36,8 @@ describe('helpers', () => {
   });
 });
 
-describe.only('lib', () => {
-  describe('vec', () => {
+describe.only('Lib', () => {
+  describe('Vector algebra', () => {
     it('scaling', () => {
       expect(lib.vecScale(10, [1, 2, 3])).to.eql([10, 20, 30]);
       expect(lib.vecScale(-1, [1, 2, 3])).to.eql([-1, -2, -3]);
@@ -66,6 +66,72 @@ describe.only('lib', () => {
       expect(lib.unit([5, 0, 0])).to.eql([1, 0, 0]);
       expect(lib.unit([0, 6, 0])).to.eql([0, 1, 0]);
       expect(lib.unit([0, 0, 7])).to.eql([0, 0, 1]);
+    });
+  });
+  describe('Matrix algebra', () => {
+    describe('3x3 ', () => {
+      it('null matrix', () => {
+        // prettier-ignore
+        expect(lib.matNull3()).to.eql([
+          0, 0, 0,
+          0, 0, 0,
+          0, 0, 0
+        ]);
+      });
+      it('identity matrix', () => {
+        // prettier-ignore
+        expect(lib.matIdentity3()).to.eql([
+          1, 0, 0,
+          0, 1, 0,
+          0, 0, 1
+        ]);
+      });
+      it('transpose', () => {
+        // prettier-ignore
+        expect(lib.matTranspose3([
+          10, 11, 12,
+          20, 21, 22,
+          30, 31, 32
+        ])).to.eql([
+          10, 20, 30,
+          11, 21, 31,
+          12, 22, 32
+        ]);
+      });
+    });
+    describe('4x4 ', () => {
+      it('null matrix', () => {
+        // prettier-ignore
+        expect(lib.matNull4()).to.eql([
+          0, 0, 0, 0,
+          0, 0, 0, 0,
+          0, 0, 0, 0,
+          0, 0, 0, 0
+        ]);
+      });
+      it('identity matrix', () => {
+        // prettier-ignore
+        expect(lib.matIdentity4()).to.eql([
+          1, 0, 0, 0,
+          0, 1, 0, 0,
+          0, 0, 1, 0,
+          0, 0, 0, 1
+        ]);
+      });
+      it('transpose', () => {
+        // prettier-ignore
+        expect(lib.matTranspose4([
+          10, 11, 12, 13,
+          20, 21, 22, 23,
+          30, 31, 32, 33,
+          40, 41, 42, 43
+        ])).to.eql([
+          10, 20, 30, 40,
+          11, 21, 31, 41,
+          12, 22, 32, 42,
+          13, 23, 33, 43
+        ]);
+      });
     });
   });
 });
