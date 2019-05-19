@@ -1,4 +1,4 @@
-import { curry, splitEvery } from './helpers';
+import { curry } from './helpers';
 
 const square = x => Math.pow(x, 2);
 const add = (a, b) => a + b;
@@ -96,76 +96,35 @@ export const magnitude = vec => Math.sqrt(sum(vec.map(square)));
 
 export const unit = curry(vec => vecScale(1 / magnitude(vec), vec));
 
-export const matNull = size => new Array(size).fill(new Array(size).fill(0));
-export const matIdentity = size =>
-  matNull(size).map((row, rowIndex) =>
-    row.map((cell, columnIndex) => Number(rowIndex === columnIndex))
+export const matNull = (numRows, numCols) =>
+  new Array(numRows).fill(new Array(numCols).fill(0));
+
+export const matMap = (mat, fn) =>
+  mat.map((row, rowIndex) =>
+    row.map((val, columnIndex) => fn(val, rowIndex, columnIndex))
   );
 
-export const mat3Null = () => matNull(3);
-export const mat3Identity = () =>
-  mat3Null().map((x, i) => (i % 4 === 0 ? 1 : 0));
+export const matIdentity = (numRows, numCols) =>
+  matMap(matNull(numRows, numCols), (_, rowIndex, columnIndex) =>
+    Number(rowIndex === columnIndex)
+  );
 
-export const matTranspose = curry((size, mat) => {
-  if (size === 3) {
-    // prettier-ignore
-    const [
-      x0, y0, z0,
-      x1, y1, z1,
-      x2, y2, z2
-    ] = mat;
-    // prettier-ignore
-    return [
-      x0, x1, x2,
-      y0, y1, y2,
-      z0, z1, z2
-    ];
-  } else if (size === 4) {
-    // prettier-ignore
-    const [
-      x0, y0, z0, w0,
-      x1, y1, z1, w1,
-      x2, y2, z2, w2,
-      x3, y3, z3, w3
-    ] = mat;
-    // prettier-ignore
-    return [
-      x0, x1, x2, x3,
-      y0, y1, y2, y3,
-      z0, z1, z2, z3,
-      w0, w1, w2, w3
-    ];
-  } else {
-    throw new Error('Multiplication only available for 3x3 or 4x4');
+export const matTranspose = mat =>
+  matMap(mat, (_, rowIndex, columnIndex) => mat[columnIndex][rowIndex]);
+
+export const matDimension = mat => [mat.length, mat[0].length];
+
+export const matMultiply = curry((matA, matB) => {
+  const [aNumCols, aNumRows] = matDimension(matA);
+  const [bNumCols, bNumRows] = matDimension(matB);
+
+  if (aNumCols !== bNumRows) {
+    throw new Error('Columns of A must match Rows of B');
   }
-});
-
-// prettier-ignore
-export const mat3Transpose = matTranspose(3);
-/**
- * @description https://en.wikipedia.org/wiki/Matrix_multiplication#Definition
- * @param {*} matA
- * @param {*} matB
- */
-export const matMultiply = curry((size, matA, matB) => {
-  if (matA.length !== matB.length || matA.length !== size * size) {
-    throw new Error('Matrix sizes do not match');
-  }
-  const _matA = splitEvery(size, matA);
-  const _matB = splitEvery(size, matTranspose(size, matB));
-
-  return matNull(size).map((x, idx) => {
-    const i = Math.floor(idx / size);
-    const j = idx % size;
-    return vecDotProduct(_matA[i], _matB[j]);
+  const result = matNull(aNumRows, bNumCols);
+  const _matB = matTranspose(matB);
+  return matMap(result, (_, rowIndex, columnIndex) => {
+    return vecDotProduct(matA[rowIndex], _matB[columnIndex]);
   });
 });
 
-export const mat3Multiply = curry((matA, matB) => matMultiply(3, matA, matB));
-
-export const mat4Null = () => matNull(4);
-export const mat4Identity = () =>
-  mat4Null().map((x, i) => (i % 5 === 0 ? 1 : 0));
-
-export const mat4Transpose = matTranspose(4);
-export const mat4Multiply = curry((matA, matB) => matMultiply(4, matA, matB));
