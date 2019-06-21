@@ -3,3 +3,6 @@ node_modules
 npm-debug.log
 .reify-cache
 dist
+
+docs/.cache
+docs/public
