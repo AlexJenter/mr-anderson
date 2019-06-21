@@ -1,19 +1,5 @@
-import { curry } from './helpers';
-
-const square = x => Math.pow(x, 2);
-const add = (a, b) => a + b;
-const sum = arr => arr.reduce(add, 0);
-const mul = x => y => x * y;
-
-/**
- * # Vector multiplication
- * function for multiplying a vector by a factor.
- * @param {number} factor - the factor to be scaled by
- * @param {Array<Number>} vector - the vector  to be scaled
- * @returns {Array<Number>} the scaled vector
- */
-
-export const vecScale = curry((factor, vector) => vector.map(mul(factor)));
+import { curry, sum, square } from './helpers';
+import { vecScale } from './vecScale';
 
 /**
  * # Vector addition

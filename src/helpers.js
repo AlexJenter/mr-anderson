@@ -1,3 +1,8 @@
+export const square = x => Math.pow(x, 2);
+const add = (a, b) => a + b;
+export const sum = arr => arr.reduce(add, 0);
+export const mul = x => y => x * y;
+
 export const curry = fn =>
   function curried (...args) {
     return args.length >= fn.length

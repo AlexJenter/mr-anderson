@@ -6,3 +6,5 @@ dist
 
 docs/.cache
 docs/public
+/docs/public
+/docs/.cache
