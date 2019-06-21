@@ -20,7 +20,8 @@
   "devDependencies": {
     "gatsby-source-filesystem": "2.1.0",
     "gatsby-transformer-documentationjs": "4.1.0",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "ramda": "0.26.1"
   },
   "keywords": [
     "gatsby"

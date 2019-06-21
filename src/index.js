@@ -2,17 +2,6 @@ import { curry, sum, square } from './helpers';
 import { vecScale } from './vecScale';
 
 /**
- * # Vector addition
- * @param {Array<Number>} vecA - the first summand
- * @param {Array<Number>} vecB - the second summand
- * @returns {Array<Number>}  the sum of both vectors
- */
-
-export const vecAdd = curry((vecA, vecB) =>
-  vecA.map((compA, indexA) => compA + vecB[indexA])
-);
-
-/**
  * # Vector subtraction
  * @param {Array<Number>} vecA - the first summand
  * @param {Array<Number>} vecB - the second summand
