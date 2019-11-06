@@ -1,6 +1,7 @@
 import resolve from "rollup-plugin-node-resolve";
-import buble from "rollup-plugin-buble";
 import pkg from "./package.json";
+import cleanup from "rollup-plugin-cleanup";
+import buble from "rollup-plugin-buble";
 
 const { version, author, name, main, license, description } = pkg;
 
@@ -26,7 +27,8 @@ export default [
       banner
     },
     plugins: [
-      resolve(), // so Rollup can find external libs
+      resolve(),
+      cleanup(), // so Rollup can find external libs
       buble()
     ]
   },
@@ -39,23 +41,23 @@ export default [
       format: "esm",
       banner
     },
-    plugins: [resolve()]
-  // },
-  // {
-  //   input: "tests/**/*.test.js",
-  //   output: {
-  //     file: "dist/tests.bundle.js",
-  //     name: "lib",
-  //     sourcemap: true,
-  //     format: "iife",
-  //     banner,
-  //     globals: {
-  //       chai: "chai",
-  //       it: "it",
-  //       describe: "describe"
-  //     }
-  //   },
-  //   external: ["chai", "it", "describe"],
-  //   plugins: [resolve(), buble()]
+    plugins: [resolve(), cleanup()]
+    // },
+    // {
+    //   input: "tests/**/*.test.js",
+    //   output: {
+    //     file: "dist/tests.bundle.js",
+    //     name: "lib",
+    //     sourcemap: true,
+    //     format: "iife",
+    //     banner,
+    //     globals: {
+    //       chai: "chai",
+    //       it: "it",
+    //       describe: "describe"
+    //     }
+    //   },
+    //   external: ["chai", "it", "describe"],
+    //   plugins: [resolve(), buble()]
   }
 ];
