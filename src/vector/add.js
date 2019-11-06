@@ -1,4 +1,4 @@
-import { curry } from '../helpers';
+import { curry } from "../helpers";
 
 /**
  * @memberof V
@@ -9,5 +9,7 @@ import { curry } from '../helpers';
  * @param {Array<Number>} vecB - the second summand
  * @returns {Array<Number>}  the sum of both vectors
  */
-const _add = (vecA, vecB) => vecA.map((compA, indexA) => compA + vecB[indexA]);
-export const add = curry(_add);
+
+const add = (vecA, vecB) => vecA.map((compA, indexA) => compA + vecB[indexA]);
+
+export default curry(add);

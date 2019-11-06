@@ -5,6 +5,7 @@ module.exports = {
     author: `@gatsbyjs`
   },
   plugins: [
+    // `gatsby-mdx`,
     `gatsby-transformer-documentationjs`,
     {
       resolve: `gatsby-source-filesystem`,

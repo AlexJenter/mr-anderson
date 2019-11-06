@@ -1,5 +1,5 @@
 {
-  "extends": "standard",
+  "extends": ["standard", "prettier"],
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 6
@@ -16,6 +16,7 @@
     "prefer-const": 2,
     "no-multi-spaces": 0,
     "no-multiple-empty-lines": 0,
-    "padded-blocks": 0
+    "padded-blocks": 0,
+    "quotes": ["error", "double", { "allowTemplateLiterals": true }],
   }
 }

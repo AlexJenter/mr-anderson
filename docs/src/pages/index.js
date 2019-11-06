@@ -19,13 +19,18 @@ const IndexPage = ({ data }) => (
 
 export default IndexPage
 
-export const query = graphql`
+export const pageQuery = graphql`
   query DocsQuery {
     docs: allDocumentationJs(filter: { kind: { eq: "function" } }) {
       nodes {
         name
         params {
           name
+          description {
+            internal {
+              content
+            }
+          }
           description {
             internal {
               content
